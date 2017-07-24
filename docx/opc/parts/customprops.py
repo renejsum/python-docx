@@ -14,26 +14,9 @@ from datetime import datetime
 
 from ..constants import CONTENT_TYPE as CT
 from ..customprops import CustomProperties
-from ...oxml.customprops import CT_CustomProperties
+from ...oxml.customprops import CT_CustomProperties, ct_parse_xml
 from ..packuri import PackURI
 from ..part import XmlPart
-
-# configure XML parser
-parser_lookup = etree.ElementDefaultClassLookup(element=CT_CustomProperties)
-ct_parser = etree.XMLParser(remove_blank_text=True)
-ct_parser.set_element_class_lookup(parser_lookup)
-
-
-def ct_parse_xml(xml):
-    """
-    Return root lxml element obtained by parsing XML character string in
-    *xml*, which can be either a Python 2.x string or unicode. The custom
-    parser is used, so custom element classes are produced for elements in
-    *xml* that have them.
-    """
-    root_element = etree.fromstring(xml, ct_parser)
-    return root_element
-
 
 
 class CustomPropertiesPart(XmlPart):
